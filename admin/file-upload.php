@@ -1,8 +1,8 @@
 <?php if(!defined('__TYPECHO_ADMIN__')) exit; ?>
 
 <?php
-if (isset($post) || isset($page)) {
-    $cid = isset($post) ? $post->cid : $page->cid;
+if (isset($post) || isset($page) || isset($category)) {
+    $cid = isset($post) ? $post->cid : isset($page) ? $page->cid : $category->cid;
     
     if ($cid) {
         Typecho_Widget::widget('Widget_Contents_Attachment_Related', 'parentId=' . $cid)->to($attachment);

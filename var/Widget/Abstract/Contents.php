@@ -215,6 +215,20 @@ class Widget_Abstract_Contents extends Widget_Abstract
     {
         return $this->permalink . '#' . $this->respondId;
     }
+    
+    /**
+     * 分类id
+     * @return integer
+     */
+    protected function mid()
+    {
+    	$metas = $this->db->fetchAll($this->db
+    			->select()->from('table.metas')
+    			->join('table.relationships', 'table.relationships.mid = table.metas.mid')
+    			->where('table.relationships.cid = ?', $this->cid)
+    			->where('table.metas.type = ?', 'category'), array($this->widget('Widget_Abstract_Metas'), 'filter'));
+    	return $metas[0]['mid'];
+    }
 
     /**
      * 获取页面偏移
@@ -255,7 +269,7 @@ class Widget_Abstract_Contents extends Widget_Abstract
     public function select()
     {
         return $this->db->select('table.contents.cid', 'table.contents.title', 'table.contents.slug', 'table.contents.created', 'table.contents.authorId',
-        'table.contents.modified', 'table.contents.type', 'table.contents.status', 'table.contents.text', 'table.contents.commentsNum', 'table.contents.order',
+        'table.contents.modified', 'table.contents.type', 'table.contents.status', 'table.contents.text', 'table.contents.commentsNum', 'table.contents.readNum', 'table.contents.likeNum', 'table.contents.supportNum', 'table.contents.order',
         'table.contents.template', 'table.contents.password', 'table.contents.allowComment', 'table.contents.allowPing', 'table.contents.allowFeed',
         'table.contents.parent')->from('table.contents');
     }
@@ -282,6 +296,9 @@ class Widget_Abstract_Contents extends Widget_Abstract
             'status'        =>  empty($content['status']) ? 'publish' : $content['status'],
             'password'      =>  empty($content['password']) ? NULL : $content['password'],
             'commentsNum'   =>  empty($content['commentsNum']) ? 0 : $content['commentsNum'],
+        	'likeNum'   	=>  empty($content['likeNum']) ? 0 : $content['likeNum'],
+        	'readNum'   	=>  empty($content['readNum']) ? 0 : $content['readNum'],
+        	'supportNum'   	=>  empty($content['supportNum']) ? 0 : $content['supportNum'],
             'allowComment'  =>  !empty($content['allowComment']) && 1 == $content['allowComment'] ? 1 : 0,
             'allowPing'     =>  !empty($content['allowPing']) && 1 == $content['allowPing'] ? 1 : 0,
             'allowFeed'     =>  !empty($content['allowFeed']) && 1 == $content['allowFeed'] ? 1 : 0,
@@ -784,6 +801,38 @@ class Widget_Abstract_Contents extends Widget_Abstract
         echo false !== $more && false !== strpos($this->text, '<!--more-->') ?
         $this->excerpt . "<p class=\"more\"><a href=\"{$this->permalink}\" title=\"{$this->title}\">{$more}</a></p>" : $this->content;
     }
+    
+    /**
+     * 去掉img标签截断content内容
+     */
+    public function trimImgContents($more = false){
+    	//使用正则去除img内容
+    	$text = preg_replace('/\!?\[.*?\]+(\:\shttp\:\/\/[a-zA-Z\/\-0-9\?\%\.\_\:]+)?/', '', $this->text);
+    	$content = $this->pluginHandle(__CLASS__)->trigger($plugged)->content($text, $this);
+ 
+    	if (!$plugged) {
+    		$content = $this->isMarkdown ? $this->markdown($content)
+    		: $this->autoP($content);
+    	}
+    	 
+    	echo false !== $more && false !== strpos($this->text, '<!--more-->') ?
+    	$this->excerpt . "<p class=\"more\"><a href=\"{$this->permalink}\" title=\"{$this->title}\">{$more}</a></p>" : $content;
+    	
+    	
+    	
+    }
+    
+    
+    /**
+     * 输出文章图片
+     */
+    public function contentImg(){
+    	$hasImgs = preg_match('/http(.*?)\.(jpg|png|gif)/', $this->text, $matches);
+    	if($hasImgs){
+    		return $matches[0];
+    	}
+    	return false;
+    }
 
     /**
      * 输出文章摘要
@@ -829,6 +878,57 @@ class Widget_Abstract_Contents extends Widget_Abstract
         $num = intval($this->commentsNum);
 
         echo sprintf(isset($args[$num]) ? $args[$num] : array_pop($args), $num);
+    }
+    
+    /**
+     * 输出文章赞助数
+     *
+     * @access public
+     */
+    public function supportNum()
+    {
+    	$args = func_get_args();
+    	if (!$args) {
+    		$args[] = '%d';
+    	}
+    
+    	$num = intval($this->supportNum);
+    
+    	echo sprintf(isset($args[$num]) ? $args[$num] : array_pop($args), $num);
+    }
+    
+    /**
+     * 输出文章喜欢数
+     *
+     * @access public
+     */
+    public function likeNum()
+    {
+    	$args = func_get_args();
+    	if (!$args) {
+    		$args[] = '%d';
+    	}
+    
+    	$num = intval($this->likeNum);
+    
+    	echo sprintf(isset($args[$num]) ? $args[$num] : array_pop($args), $num);
+    }
+    
+    /**
+     * 输出文章阅读数
+     *
+     * @access public
+     */
+    public function readNum()
+    {
+    	$args = func_get_args();
+    	if (!$args) {
+    		$args[] = '%d';
+    	}
+    
+    	$num = intval($this->readNum);
+    
+    	echo sprintf(isset($args[$num]) ? $args[$num] : array_pop($args), $num);
     }
 
     /**
@@ -887,7 +987,18 @@ class Widget_Abstract_Contents extends Widget_Abstract
             echo $default;
         }
     }
-
+    
+   /**
+    * 输出所有分类
+    * return array
+    * 
+    */
+	public function allCategory(){
+		return $this->db->fetchAll($this->db
+				->select()
+				->from('table.metas')->where('table.metas.type= ? ', 'category'));
+	}
+	
     /**
      * 输出文章标签
      *
@@ -903,7 +1014,7 @@ class Widget_Abstract_Contents extends Widget_Abstract
         if ($this->tags) {
             $result = array();
             foreach ($this->tags as $tag) {
-                $result[] = $link ? '<a href="' . $tag['permalink'] . '">'
+                $result[] = $link ? '<a class="tags" tid="'.$tag['mid'].'" href="javascript:void(0)">'
                 . $tag['name'] . '</a>' : $tag['name'];
             }
 

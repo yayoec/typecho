@@ -226,7 +226,7 @@ class Typecho_Request
                     . (empty($_SERVER['SERVER_PORT']) || in_array($_SERVER['SERVER_PORT'], array(80, 443)) ? '' : ':' . $_SERVER['SERVER_PORT']));
             }
         }
-
+		
         return self::$_urlPrefix;
     }
 

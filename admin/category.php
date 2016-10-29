@@ -2,6 +2,7 @@
 include 'common.php';
 include 'header.php';
 include 'menu.php';
+Typecho_Widget::widget('Widget_Metas_Category_Edit')->to($post);
 ?>
 
 <div class="main">
@@ -19,5 +20,6 @@ include 'menu.php';
 include 'copyright.php';
 include 'common-js.php';
 include 'form-js.php';
+include 'file-upload-js.php';
 include 'footer.php';
 ?>

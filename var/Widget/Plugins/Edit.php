@@ -86,7 +86,7 @@ class Widget_Plugins_Edit extends Widget_Abstract_Options implements Widget_Inte
 
             /** 载入插件 */
             require_once $pluginFileName;
-
+			
             /** 判断实例化是否成功 */
             if (isset($activatedPlugins[$pluginName]) || !class_exists($className)
             || !method_exists($className, 'activate')) {

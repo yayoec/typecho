@@ -75,7 +75,6 @@ class Typecho_Router_Parser
         $params = explode(' ', $matches[1]);
         $paramsNum = count($params);
         $this->_params[] = $params[0];
-
         if (1 == $paramsNum) {
             return sprintf($this->_defaultRegx['char'], '+');
         } else if (2 == $paramsNum) {
@@ -96,7 +95,6 @@ class Typecho_Router_Parser
     public function parse()
     {
         $result = array();
-
         foreach ($this->_routingTable as $key => $route) {
             $this->_params = array();
             $route['regx'] = preg_replace_callback("/%([^%]+)%/", array($this, '_match'),

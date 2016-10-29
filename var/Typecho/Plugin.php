@@ -481,7 +481,7 @@ class Typecho_Plugin
         $component = $this->_handle . ':' . $component;
         $last = count($args);
         $args[$last] = $last > 0 ? $args[0] : false;
-
+		
         if (isset(self::$_plugins['handles'][$component])) {
             $args[$last] = NULL;
             $this->_signal = true;
@@ -489,7 +489,9 @@ class Typecho_Plugin
                 $args[$last] = call_user_func_array($callback, $args);
             }
         }
-
+//         if($component == 'Widget_Archive:beforeRender'){
+// 			echo "<pre>	";var_dump($args[$last]);
+//         }
         return $args[$last];
     }
 }

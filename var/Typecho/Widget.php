@@ -192,11 +192,11 @@ abstract class Typecho_Widget
         $parts = explode('@', $alias);
         $className = $parts[0];
         $alias = empty($parts[1]) ? $className : $parts[1];
-
+		
         if (isset(self::$_widgetAlias[$className])) {
             $className = self::$_widgetAlias[$className];
         }
-
+		
         if (!isset(self::$_widgetPool[$alias])) {
             /** 如果类不存在 */
             if (!class_exists($className)) {
@@ -214,7 +214,7 @@ abstract class Typecho_Widget
             /** 初始化response */
             $responseObject = $enableResponse ? Typecho_Response::getInstance()
             : Typecho_Widget_Helper_Empty::getInstance();
-
+			
             /** 初始化组件 */
             $widget = new $className($requestObject, $responseObject, $params);
 

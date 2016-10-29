@@ -28,6 +28,7 @@ class Widget_Do extends Typecho_Widget
         'register'                  =>  'Widget_Register',
         'upgrade'                   =>  'Widget_Upgrade',
         'upload'                    =>  'Widget_Upload',
+    	'img-upload'                =>  'Widget_ImgUpload',
         'service'                   =>  'Widget_Service',
         'xmlrpc'                    =>  'Widget_XmlRpc',
         'comments-edit'             =>  'Widget_Comments_Edit',
@@ -57,12 +58,12 @@ class Widget_Do extends Typecho_Widget
     {
         /** 验证路由地址 **/
         $action = $this->request->action;
-
+		
         //兼容老版本
         if (empty($action)) {
             $widget = trim($this->request->widget, '/');
             $objectName = 'Widget_' . str_replace('/', '_', $widget);
-
+			
             if (Typecho_Common::isAvailableClass($objectName)) {
                 $widgetName = $objectName;
             }
@@ -85,4 +86,5 @@ class Widget_Do extends Typecho_Widget
 
         throw new Typecho_Widget_Exception(_t('请求的地址不存在'), 404);
     }
+    
 }

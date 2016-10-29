@@ -1301,7 +1301,6 @@ class Widget_Archive extends Widget_Abstract_Contents
                 array('keywords' => urlencode($filterKeywords)), $this->options->index));
             }
         }
-
         /** 自定义首页功能 */
         $frontPage = $this->options->frontPage;
         if (!$this->_invokeByFeed && ('index' == $this->parameter->type || 'index_page' == $this->parameter->type)) {
@@ -1967,7 +1966,7 @@ class Widget_Archive extends Widget_Abstract_Contents
                     $validated = true;
                 }
             }
-
+			
             //~ 然后找归档类型路径, 比如 category.php
             if (!$validated) {
                 $themeFile = $this->_archiveType . '.php';
@@ -2010,10 +2009,10 @@ class Widget_Archive extends Widget_Abstract_Contents
         if (!$validated) {
             Typecho_Common::error(500);
         }
-
+		
         /** 挂接插件 */
         $this->pluginHandle()->beforeRender($this);
-
+		
         /** 输出模板 */
         require_once $this->_themeDir . $this->_themeFile;
 

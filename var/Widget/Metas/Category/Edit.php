@@ -161,7 +161,12 @@ class Widget_Metas_Category_Edit extends Widget_Abstract_Metas implements Widget
         /** 分类主键 */
         $mid = new Typecho_Widget_Helper_Form_Element_Hidden('mid');
         $form->addInput($mid);
-
+		
+        /** 专题图片 **/
+        $file = new Typecho_Widget_Helper_Layout('div');
+        $file->setAttribute('id', 'file');
+        $form->addItem($file);
+        
         /** 提交按钮 */
         $submit = new Typecho_Widget_Helper_Form_Element_Submit();
         $submit->input->setAttribute('class', 'btn primary');

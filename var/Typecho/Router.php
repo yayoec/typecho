@@ -118,7 +118,6 @@ class Typecho_Router
     {
         /** 获取PATHINFO */
         $pathInfo = self::getPathInfo();
-
         foreach (self::$_routingTable as $key => $route) {
             if (preg_match($route['regx'], $pathInfo, $matches)) {
                 self::$current = $key;

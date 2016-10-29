@@ -232,8 +232,8 @@ class Typecho_Common
      * @param Exception $exception 截获的异常
      * @return void
      */
-    public static function exceptionHandle(Exception $exception)
-    {
+    public static function exceptionHandle($exception)
+    {var_dump($exception);die;
         @ob_end_clean();
 
         if (defined('__TYPECHO_DEBUG__')) {
@@ -269,7 +269,7 @@ class Typecho_Common
         } else {
             $code = $exception;
         }
-
+		
         $charset = self::$charset;
 
         if ($isException && $exception instanceof Typecho_Db_Exception) {

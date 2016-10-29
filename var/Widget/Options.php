@@ -360,6 +360,16 @@ class Widget_Options extends Typecho_Widget
         /** 初始化站点信息 */
         if (defined('__TYPECHO_SITE_URL__')) {
             $this->siteUrl = __TYPECHO_SITE_URL__;
+        }else{
+        	if (defined('__TYPECHO_URL_PREFIX__')) {
+        		$this->siteUrl == __TYPECHO_URL_PREFIX__;
+        	} else {
+        		$this->siteUrl = (self::isSecure() ? 'https' : 'http') . '://'
+        				. (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME']
+        						. (empty($_SERVER['SERVER_PORT']) || in_array($_SERVER['SERVER_PORT'], array(80, 443)) ? '' : ':' . $_SERVER['SERVER_PORT']));
+        	}
+        	//本地添加两行指向/typecho目录
+        	$this->siteUrl .= dirname($_SERVER['SCRIPT_NAME']);
         }
 
         $this->originalSiteUrl = $this->siteUrl;
@@ -448,7 +458,7 @@ class Widget_Options extends Typecho_Widget
 
         $url = defined('__TYPECHO_THEME_URL__') ? __TYPECHO_THEME_URL__ :
             Typecho_Common::url(__TYPECHO_THEME_DIR__ . '/' . $theme, $this->siteUrl);
-
+        
         return Typecho_Common::url($path, $url);
     }
 

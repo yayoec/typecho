@@ -77,6 +77,7 @@ class Widget_Contents_Post_Date extends Typecho_Widget
         $result = array();
         while ($post = $this->db->fetchRow($resource)) {
             $timeStamp = $post['created'] + $offset;
+            //var_dump($this->parameter->format);die;
             $date = date($this->parameter->format, $timeStamp);
 
             if (isset($result[$date])) {
