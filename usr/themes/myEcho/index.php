@@ -47,10 +47,11 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
         <ul class="article-list thumbnails clearfix">
 			<?php while($this->next()):?>
             <li class="<?php if($this->contentImg()):?>have-img<?php endif;?>">
-                <?php if($this->contentImg()):?>
+               <?php if($this->contentImg()):?>
                 <a class="wrap-img" href="javascript:void(0);"><img src="<?php echo $this->contentImg()?>" alt="300"></a>
                 <?php endif;?>
                 <div>
+                
                     <p class="list-top">
                         <?php $this->category();?>
                         <em>·</em>

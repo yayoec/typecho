@@ -450,6 +450,7 @@ input.search-query {
     width: 100px;
     height: 100px;
     cursor: default;
+    margin: 70px 0 25px 25px;
 }
 
 .article-list .list-top {
@@ -1303,4 +1304,29 @@ article .meta-bottom {
     color: #4094c7;
 }
 
+/*首页文章显示*/
+.article-list .title {
+    margin-top: 0;
+    margin-bottom: 10px;
+    margin-left: 0;
+    display: inherit;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.5;
+}
+.post-content p{
+    line-height: 1.5;
+    word-wrap: break-word;
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    text-shadow: 1px 1px 0px #eeeeee;
 
+}
+.post-meta a, .post-content a, .widget a, .comment-content a {
+    border-bottom: 1px solid #EEE;
+    color: #3354AA;
+    
+}

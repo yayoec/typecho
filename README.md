@@ -1,16 +1,11 @@
 Typecho Blogging Platform
 =========================
 
-Typecho is a PHP Blogging Platform. Simple and Powerful.
-
-#### Homepage
-http://typecho.org/
-
-#### Documents
-http://docs.typecho.org/
+fork from Typecho, Typecho is a PHP Blogging Platform. Simple and Powerful.
 
 #### Community
-http://forum.typecho.org/
+http://typecho.org/
 
-#### Download
-http://typecho.org/download
+
+#### Homepage
+http://blog.inectu.com

@@ -15,9 +15,11 @@
 		  </a>
 	  </div>
 	  <div class="nav-user">
+	  		<!-- 
 	      <a class="signin" data-signin-link="true" data-toggle="modal" data-placement="right" data-original-title="登录" data-container="div.expanded" href="/sign_in">
 	        <i class="fa fa-user"></i><span class="title">登录</span>
 		  </a>    
+		   -->
 	  </div>
 	</div>
 	<!-- end .navbar -->

@@ -807,19 +807,32 @@ class Widget_Abstract_Contents extends Widget_Abstract
      */
     public function trimImgContents($more = false){
     	//使用正则去除img内容
-    	$text = preg_replace('/\!?\[.*?\]+(\:\shttp\:\/\/[a-zA-Z\/\-0-9\?\%\.\_\:]+)?/', '', $this->text);
+    	$text = preg_replace('/\!?\[.*?\..*?\]+(\:\shttp\:\/\/[a-zA-Z\/\-0-9\?\%\.\_\:]+\.(jpg|png|gif))?(\[\d+\])?/', '', $this->text);
     	$content = $this->pluginHandle(__CLASS__)->trigger($plugged)->content($text, $this);
  
     	if (!$plugged) {
     		$content = $this->isMarkdown ? $this->markdown($content)
     		: $this->autoP($content);
     	}
-    	 
+    	$content = $this->cutContents($content); 
     	echo false !== $more && false !== strpos($this->text, '<!--more-->') ?
     	$this->excerpt . "<p class=\"more\"><a href=\"{$this->permalink}\" title=\"{$this->title}\">{$more}</a></p>" : $content;
     	
     	
     	
+    }
+    
+    /**
+     * 截取两个文章段落用于首页显示
+     */
+    public function cutContents($contents){
+    	preg_match_all('/<p>.*?<\/p>/', $contents, $matches);
+    	if (!empty($matches[0])){
+    		if (count($matches[0]) > 2){
+    			return $matches[0][0].$matches[0][1].'......';
+    		}
+    	}
+    	return $contents;
     }
     
     
