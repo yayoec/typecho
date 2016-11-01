@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="//cdnjscn.b0.upaiyun.com/libs/normalize/2.1.3/normalize.min.css">
     <link rel="stylesheet" href="<?php $this->options->themeUrl(); ?>css/font-awesome.css">
     <link rel="stylesheet" href="<?php $this->options->themeUrl(); ?>css/style.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="<?php echo $this->options->siteUrl?>favicon.ico" type="image/x-icon" />
 	
     <!--[if lt IE 9]>
     <script src="//cdnjscn.b0.upaiyun.com/libs/html5shiv/r29/html5.min.js"></script>
