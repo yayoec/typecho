@@ -62,10 +62,10 @@
                 <!--  share group -->
                 <div class="share-group pull-right">
                     <a href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=1881139527',u=z||d.location,p=['&amp;url=',e(u),'&amp;title=',e(t||d.title),'&amp;source=',e(r),'&amp;sourceUrl=',e(l),'&amp;content=',c||'gb2312','&amp;pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','http://cwb.assets.jianshu.io/notes/images/6227346/weibo/image_787907822e35.jpg', '推荐 @菇凉请指教 的文章《我为什么不选择放弃》（ 分享自 @简书 ）','http://www.jianshu.com/p/dc4ddc0f4c0c','页面编码gb2312|utf-8默认gb2312'));" data-name="weibo">
-                    <i class="fa fa-weibo"></i><span>分享到微博</span>
+                    <i class="fa fa-weibo"></i><span>分享</span>
                     </a>
                     <a data-toggle="modal" href="#share-weixin-modal" data-name="weixin">
-                    <i class="fa fa-weixin"></i><span>分享到微信</span>
+                    <i class="fa fa-weixin"></i><span>分享</span>
                     </a>
                 
                 </div>

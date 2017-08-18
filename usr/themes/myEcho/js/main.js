@@ -31,14 +31,14 @@ require(['jQuery', 'fingerPrint2', 'Comments'], function(jQuery, Fingerprint2, C
 		$('.navdetail>div').animate({'left': '-350px'}, 250, 'swing');
 		animateMode(mod);
 		function animateMode(mod){
-			if(pathInfo == '/'){
+			// if(pathInfo == '/'){
 				if(mod != 'gallary')
 					$('#'+mod).animate({'left': '45px'}, 250, 'swing');
 				else
 					alert('相册功能暂未开放');return false;
-			}else{
-				location.href = siteUrl;
-			}
+			// }else{
+			// 	location.href = siteUrl;
+			// }
 		}
 	})
     $('button.navbar-toggle').on('click', function(){
