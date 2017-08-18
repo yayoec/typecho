@@ -28,8 +28,8 @@ require(['jQuery', 'fingerPrint2', 'Comments'], function(jQuery, Fingerprint2, C
 		$('.dropdown>a').removeClass('active');
 		$(this).addClass('active');
 		var mod = $(this).attr('class').match(/nav-([a-z]+)/)[1];
-		$('.navdetail>div').animate({'left': '-23%'}, 250, 'swing');
-		animateMode(mod)
+		$('.navdetail>div').animate({'left': '-350px'}, 250, 'swing');
+		animateMode(mod);
 		function animateMode(mod){
 			if(pathInfo == '/'){
 				if(mod != 'gallary')
@@ -40,5 +40,8 @@ require(['jQuery', 'fingerPrint2', 'Comments'], function(jQuery, Fingerprint2, C
 				location.href = siteUrl;
 			}
 		}
+	})
+    $('button.navbar-toggle').on('click', function(){
+        $('#menu').slideToggle();
 	})
 });

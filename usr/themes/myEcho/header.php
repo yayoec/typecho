@@ -26,7 +26,7 @@
 
     <!-- 通过自有函数输出HTML头部信息 -->
     <?php $this->header(); ?>
-    <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=4033368590&debug=true" type="text/javascript" charset="utf-8"></script>
+<!--    <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=4033368590&debug=true" type="text/javascript" charset="utf-8"></script>-->
 </head>
 <body>
 <!--[if lt IE 8]>

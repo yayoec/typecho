@@ -1,5 +1,5 @@
 <div id="sidebar">
-	<div class="navbar navbar-jianshu expanded">
+	<div class="navbar navbar-homepage expanded">
 	  <div class="dropdown">
 	      <a class="nav-userinfo active logo" title="J's Blog">
 	        <b>J</b><i class="fa fa-home"></i><span class="title">首页</span>
@@ -79,7 +79,7 @@
 						?>
 				<li>
 					<a href="<?php echo $permalLink?>">
-						<i class="fa fa-sitemap"></i>
+						<i class="fa fa-codepen"></i>
 						<strong><?php echo $cats[$i]['name'];?></strong>
 						<small><?php echo $cats[$i]['description']?></small>
 					</a>
@@ -102,5 +102,45 @@
 	</div>
 	
 </div>
+
+<ul class="container" id="top-menu">
+    <li class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="true">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </li>
+    <li class="navbar-collapse collapse in" id="menu" aria-expanded="true" style="">
+        <ul class="nav navbar-nav">
+            <li class="active">
+                <a href="/">
+                    <span class="menu-text">HOME</span><i class="iconfont ic-navigation-discover menu-icon"></i>
+                </a>
+            </li>
+            <?php
+            $cats = $this->allCategory();
+            if (!empty($cats)):
+                for ($i = 0; $i < count($cats); $i++):
+                    $pathInfo = Typecho_Router::url('category', $cats[$i]);
+                    $permalLink = Typecho_Common::url($pathInfo, $this->options->index);
+                    ?>
+                    <li>
+                        <a href="<?php echo $permalLink?>">
+                            <span class="menu-text"><?php echo $cats[$i]['name'];?></span><i class="iconfont ic-navigation-discover menu-icon"></i>
+                        </a>
+                    </li>
+                <?php endfor;?>
+            <?php endif;?>
+
+            <li class="search">
+                <form target="_blank" action="/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+                    <input type="text" name="q" id="q" value="" autocomplete="off" placeholder="搜索" class="search-input" data-mounted="1">
+                    <a class="search-btn" href="javascript:void(null)"><i class="fa fa-search"></i></a>
+                </form>
+            </li>
+        </ul>
+    </li>
+</ul>
 
 <!-- end #sidebar -->
