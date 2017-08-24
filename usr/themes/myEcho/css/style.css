@@ -177,7 +177,7 @@ table th {
 .navbar-homepage {
     position: fixed;
     width: 45px;
-    z-index: 1049;
+    z-index: 149;
     -webkit-backface-visibility: hidden;
 }
 
@@ -618,7 +618,7 @@ article .copyright{
 /*头像上部悬浮信息*/
 .tooltip {
 	position: absolute;
-	z-index: 1030;
+	z-index: 130;
 	display: block;
 	visibility: visible;
 	font-size: 11px;
@@ -831,7 +831,6 @@ article .meta-bottom {
     font-size: 14px;
 }
 #comments{
-	width: 620px;
     margin: 95px auto 35px;
 }
 .comment-list .comment-head {
@@ -1007,10 +1006,10 @@ article .meta-bottom {
     opacity: 1;
     transition: all .2s ease-in;
     height: 100%;
-    z-index: 999;
+    z-index: 99;
 }
 #userinfo{
-	
+    left:-15%;
 }
 #topic{
 	left:-15%;
@@ -1330,6 +1329,50 @@ article .meta-bottom {
     border-bottom: 1px solid #EEE;
     color: #3354AA;
     
+}
+
+.coverBg{
+    position: fixed;
+    top: 0;
+    background-color: #000;
+    filter:alpha(opacity=80); /* IE */
+    -moz-opacity:0.8; /* Moz + FF */
+    opacity: 0.8;
+    display:none ;
+    z-index: 200;
+}
+.coverCont{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width:200px;
+    color: #ffc700;
+    display:none ;
+    z-index: 201;
+}
+
+.coverCont ul li {
+    display: inline-block;
+    margin: 5px 5px;
+}
+.coverCont ul li a{
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    line-height: 50px;
+    display: block;
+    text-align: center;
+}
+.coverCont ul li a i{
+    font-size: 24px;
+    font-weight: 400!important;
+}
+.coverCont ul li a.weibo {
+    background-color: #e05244;
+}
+.coverCont ul li a.weixin {
+    background-color: #00bb29;
 }
 
 /**

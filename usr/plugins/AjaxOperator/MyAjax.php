@@ -11,6 +11,7 @@ class AjaxOperator_MyAjax extends Widget_Abstract_Options implements Widget_Inte
 	private $_actions = array(
 		'getArticleLike',
 		'addArticleLike',
+        'addComment'
 	);
 	public function execute() {
 		
@@ -26,12 +27,72 @@ class AjaxOperator_MyAjax extends Widget_Abstract_Options implements Widget_Inte
 				case 'addArticleLike':
 					$this->addArticleLike();
 					break;
+                case 'addComment':
+                    $this->addComment();
+                    break;
 				default:
 					break;
 				
 			}
 		}
 	}
+
+	public function addComment(){
+        $cid = $this->request->cid;
+        $comment_content = $this->request->comment;
+        $ip = $this->request->getIp();
+        $agent = $this->request->getAgent();
+        $parent_id = $this->request->parent_id ?? '';
+        $owner_id = $_COOKIE['oauth_id'];
+        if (!$owner_id)
+            $this->response->throwJson(['status' => -1, 'reason' => '需要使用第三方登录']);
+        $oauth_info = $this->db->fetchRow($this->db->select()->from('table.oauth')->where(
+            'table.oauth.oauth_id = ?', $owner_id));
+        if (empty($oauth_info)) {
+            $this->response->throwJson(['status' => -1, 'reason' => '未获取到用户信息']);
+        }
+        $comment = array(
+            'cid' => $cid,
+            'agent' => $agent,
+            'ip' => $ip,
+            'ownerId' => $owner_id,
+            'type' => 'comment',
+            'author' => $oauth_info['oauth_name'],
+            'url' => $oauth_info['avatar'],
+            'parent' => $parent_id,
+            'text' => $comment_content,
+            'status' => 'approved',
+            'created' => date('Y-m-d H:i:s', time())
+        );
+        if($coid = $this->db->query($this->db->insert('table.comments')->rows($comment))){
+            $comment['coid'] = $coid;
+            $this->response->throwJson(['status' => 0, 'reason' => '', 'data' => $comment]);
+        }
+        $this->response->throwJson(['status' => -1, 'reason' => '评论失败']);
+    }
+
+    /**
+     * @param $cid 文章id 同aid
+     */
+    public function getComments($cid){
+        $all = $this->db->fetchAll($this->db->select()->from('table.comments')->where(
+            'table.comments.cid = ? and parent = 0', $cid));
+        $coids = array();
+        foreach ($all as $row){
+            array_push($coids, $row['coid']);
+        }
+        $allSub = $this->db->fetchAll($this->db->select()->from('table.comments')->where(
+            'table.comments.parent in ?', $coids));
+        $countNum = count($all) + count($allSub);
+        for ($i = 0; $i < count($all); $i++){
+            $all[$i]['sub'] = array();
+            foreach ($allSub as $subRow){
+                if ($subRow['parent'] == $all[$i]['coid'])
+                    array_push($all[$i]['sub'], $subRow);
+            }
+        }
+        return [$all, $countNum];
+    }
 	
 	/**
 	 * 获取文章文章喜欢数
@@ -50,9 +111,9 @@ class AjaxOperator_MyAjax extends Widget_Abstract_Options implements Widget_Inte
 					$this->request->uniqueFingerPrinter));
 			if(!$isreaded){
 				$readRecord = array(
-						'user_unique_id' => $this->request->uniqueFingerPrinter,
-						'article_id' => $this->request->aid,
-						'ip' => $this->request->getIp(),
+                    'user_unique_id' => $this->request->uniqueFingerPrinter,
+                    'article_id' => $this->request->aid,
+                    'ip' => $this->request->getIp(),
 				);
 				if($this->db->query($this->db->insert('table.read_record')->rows($readRecord))){
 					$this->increField($this->request->aid, 'readNum', 1);
@@ -63,6 +124,9 @@ class AjaxOperator_MyAjax extends Widget_Abstract_Options implements Widget_Inte
 		$mlikeNum = $this->db->fetchRow($this->db->select('count(*)')->from('table.like_record')->where(
 				'table.like_record.category_id = ?', $this->request->mid));
 		$ret['mlikeNum'] = $mlikeNum['count(*)'];
+        $comments = $this->getComments($this->request->aid);
+        $ret['comments'] = $comments[0];
+        $ret['commentsNum'] = $comments[1];
 		$this->response->throwJson($ret);
 	}
 	

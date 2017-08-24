@@ -1,7 +1,7 @@
 <div id="sidebar">
 	<div class="navbar navbar-homepage expanded">
 	  <div class="dropdown">
-	      <a class="nav-userinfo active logo" title="J's Blog">
+	      <a class="nav-userinfo logo" title="J's Blog">
 	        <b>J</b><i class="fa fa-home"></i><span class="title">首页</span>
 		  </a>      
 		  <a class="nav-topic" title="专题">
@@ -43,8 +43,7 @@
 			<div id="wb_button"><wb:follow-button uid="1592703762" type="gray_2" width="136" height="24" ></wb:follow-button></div>
 	
 			<p class="header-subtitle"><?php $this->options->description() ?></p>
-	
-			</nav>
+
 			<nav class="header-nav">
 				<div class="social">
 		
