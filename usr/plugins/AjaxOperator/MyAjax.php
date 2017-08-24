@@ -77,13 +77,15 @@ class AjaxOperator_MyAjax extends Widget_Abstract_Options implements Widget_Inte
     public function getComments($cid){
         $all = $this->db->fetchAll($this->db->select()->from('table.comments')->where(
             'table.comments.cid = ? and parent = 0', $cid));
-        $coids = array();
+        $coids = array();$countNum = 0;
         foreach ($all as $row){
             array_push($coids, $row['coid']);
         }
-        $allSub = $this->db->fetchAll($this->db->select()->from('table.comments')->where(
-            'table.comments.parent in ?', $coids));
-        $countNum = count($all) + count($allSub);
+        if (count($coids) != 0){
+            $allSub = $this->db->fetchAll($this->db->select()->from('table.comments')->where(
+                'table.comments.parent in ?', $coids));
+            $countNum = count($all) + count($allSub);
+        }
         for ($i = 0; $i < count($all); $i++){
             $all[$i]['sub'] = array();
             foreach ($allSub as $subRow){

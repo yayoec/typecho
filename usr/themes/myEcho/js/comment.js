@@ -105,7 +105,7 @@ define(['jQuery'], function(jQuery){
                     }, 0);
 				}
 			});
-			$(document).on('click', 'input[name="commit"]', function(){alert(2);
+			$(document).on('click', 'input[name="commit"]', function(){
 				if($(this).hasClass('loading'))
 					return false;
 				//$(this).addClass('loading').val($(this).attr('data-disable-with'));
