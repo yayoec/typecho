@@ -39,7 +39,7 @@
 <section class="coverCont">
     <ul>
         <li><a class="weibo" target="_self" title="微博" href="http://inectu.com/index.php/oauth/weibo"><i class="fa fa-weibo"></i><span></span></a></li>
-        <li><a class="weixin" target="_self" title="微信" href="http://inectu.com/index.php/oauth/wechat"><i class="fa fa-wechat"></i></a></li>
+<!--        <li><a class="weixin" target="_self" title="微信" href="http://inectu.com/index.php/oauth/wechat"><i class="fa fa-wechat"></i></a></li>-->
     </ul>
 </section>
 </body>

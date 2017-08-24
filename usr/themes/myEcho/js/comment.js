@@ -200,6 +200,18 @@ define(['jQuery'], function(jQuery){
 				}
                 $('#comments-list').find('form textarea').val('@'+nickname).focus();
 			})
+            $(document).on('focus', 'textarea', function(){
+                if(!getCookie('oauth_id')){
+                    $(".coverBg").height($(window).height()).width($(window).width());//使遮罩的背景覆盖整个页面
+                    $(".coverBg").show();
+                    $(".coverCont").show();
+                    showDiv();
+                }else{
+                    setTimeout(function() {
+                        $('#comment_content').focus();
+                    }, 0);
+                }
+            })
 		}
 	};
 	function showDiv(){
