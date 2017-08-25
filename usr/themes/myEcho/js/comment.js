@@ -66,9 +66,8 @@ define(['jQuery'], function(jQuery){
 			);
 			this.triggerEvent(uniqueFingerPrinter);
 		    if(getCookie('from_login')){
-                setTimeout(function() {
-                    $('#comment_content').focus();
-                }, 0);
+                $('body').animate({scrollTop:$('#comment_content').offset().top + 'px'});
+                $('#comment_content').focus();
                 setCookie('from_login', 0, -1);
             }
 		},
@@ -115,6 +114,9 @@ define(['jQuery'], function(jQuery){
 					return false;
 				//$(this).addClass('loading').val($(this).attr('data-disable-with'));
 				var pa = $(this).parent().parent();
+				if(pa.find('textarea').val() == ''){
+				    return false;
+                }
 				var pid = pa.parent().attr('pid') || null;
                 $.post(ajaxUrl, {
                     action: 'addComment',
