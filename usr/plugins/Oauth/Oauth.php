@@ -80,6 +80,7 @@ class Oauth_Oauth extends Widget_Abstract_Options implements Widget_Interface_Do
             setcookie('oauth_id', $userinfo['id'], time() + 3600*24*30, '/');
             setcookie('avatar', $userinfo['avatar_large'], time() + 3600*24*30, '/');
             setcookie('nickname', $userinfo['screen_name'], time() + 3600*24*30, '/');
+            setcookie('from_login', 1, time() + 3600, '/');
         }
         header("Location: " . Typecho_Cookie::get('http_refferr'));
         die;

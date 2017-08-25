@@ -65,7 +65,12 @@ define(['jQuery'], function(jQuery){
 				}
 			);
 			this.triggerEvent(uniqueFingerPrinter);
-		
+		    if(getCookie('from_login')){
+                setTimeout(function() {
+                    $('#comment_content').focus();
+                }, 0);
+                setCookie('from_login', 0, -1);
+            }
 		},
 		
 		'triggerEvent': function(uniqueFingerPrinter){
@@ -201,6 +206,7 @@ define(['jQuery'], function(jQuery){
                 $('#comments-list').find('form textarea').val('@'+nickname).focus();
 			})
             $(document).on('focus', 'textarea', function(){
+                var that = $(this);
                 if(!getCookie('oauth_id')){
                     $(".coverBg").height($(window).height()).width($(window).width());//使遮罩的背景覆盖整个页面
                     $(".coverBg").show();
@@ -208,7 +214,7 @@ define(['jQuery'], function(jQuery){
                     showDiv();
                 }else{
                     setTimeout(function() {
-                        $('#comment_content').focus();
+                        that.focus();
                     }, 0);
                 }
             })

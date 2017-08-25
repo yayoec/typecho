@@ -19,8 +19,8 @@ class Oauth_Plugin implements Typecho_Plugin_Interface
      */
     public static function activate()
     {
-        Helper::addRoute("oauth_weibo", "index.php/oauth/weibo", "Oauth_Oauth", "getWeiboLogin");
-        Helper::addRoute("weibo_callback", "index.php/weibo/callback", "Oauth_Oauth", "weiboCallback");
+        Helper::addRoute("oauth_weibo", "/oauth/weibo", "Oauth_Oauth", "getWeiboLogin");
+        Helper::addRoute("weibo_callback", "/weibo/callback", "Oauth_Oauth", "weiboCallback");
     }
     
     /**
