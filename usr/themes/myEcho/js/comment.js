@@ -208,14 +208,11 @@ define(['jQuery'], function(jQuery){
                 $('#comments-list').find('form textarea').val('@'+nickname).focus();
 			})
             $(document).on('focus', 'textarea', function(){
-                var that = $(this);
                 if(!getCookie('oauth_id')){
                     $(".coverBg").height($(window).height()).width($(window).width());//使遮罩的背景覆盖整个页面
                     $(".coverBg").show();
                     $(".coverCont").show();
                     showDiv();
-                }else{
-                     that.focus();
                 }
             })
 		}
