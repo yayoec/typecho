@@ -28,7 +28,8 @@ class Oauth_Oauth extends Widget_Abstract_Options implements Widget_Interface_Do
      */
     public function getWeiboLogin()
     {
-        Typecho_Cookie::set('http_refferr', $_SERVER['HTTP_REFERER'], time() + 3600*24);
+        $http_refferr = $_SERVER['HTTP_REFERER'] ?? 'http://www.inectu.com';
+        Typecho_Cookie::set('http_refferr', $http_refferr, time() + 3600*24);
         $o = new Typecho_SaeTOAuthV2(WEIBO_APP_KEY, WEIBO_APP_SECRET);
         $code_url = $o->getAuthorizeURL(WEIBO_CALLBACK);
         header("Location: " . $code_url);
