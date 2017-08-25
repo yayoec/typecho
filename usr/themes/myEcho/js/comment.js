@@ -215,9 +215,7 @@ define(['jQuery'], function(jQuery){
                     $(".coverCont").show();
                     showDiv();
                 }else{
-                    setTimeout(function() {
-                        that.focus();
-                    }, 0);
+                     that.focus();
                 }
             })
 		}
